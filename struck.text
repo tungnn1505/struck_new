@@ -1,0 +1,835 @@
+
+CREATE TABLE [dbo].[HangTau] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [Name] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [BeachContainer] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Note] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Deleted] bit  NULL
+)
+GO
+ALTER TABLE [dbo].[HangTau] SET (LOCK_ESCALATION = TABLE)
+GO
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[KhachHang_Bank]') AND type IN ('U'))
+	DROP TABLE [dbo].[KhachHang_Bank]
+GO
+
+CREATE TABLE [dbo].[KhachHang_Bank] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [IDKhachHang] bigint  NULL,
+  [NameBank] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Branch] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Accounting] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [IDTienTe] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[KhachHang_Bank] SET (LOCK_ESCALATION = TABLE)
+GO
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[KhachHang_Contact]') AND type IN ('U'))
+	DROP TABLE [dbo].[KhachHang_Contact]
+GO
+
+CREATE TABLE [dbo].[KhachHang_Contact] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [Name] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [PhoneNumber] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Email] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Zalo] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [NguoiDaiDien] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [IDKhachHang] bigint  NULL
+)
+GO
+ALTER TABLE [dbo].[KhachHang_Contact] SET (LOCK_ESCALATION = TABLE)
+GO
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[KhachHang_Kho]') AND type IN ('U'))
+	DROP TABLE [dbo].[KhachHang_Kho]
+GO
+
+CREATE TABLE [dbo].[KhachHang_Kho] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [CodeStore] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [NameStore] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Address] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [NameStoreKeeper] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [IDKhachHang] bigint  NULL,
+  [PhoneNumber] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
+)
+GO
+
+ALTER TABLE [dbo].[KhachHang_Kho] SET (LOCK_ESCALATION = TABLE)
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[KhachHang_Xe]') AND type IN ('U'))
+	DROP TABLE [dbo].[KhachHang_Xe]
+GO
+
+CREATE TABLE [dbo].[KhachHang_Xe] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [IDKhachHang] bigint  NULL,
+  [IDLoaiXe] bigint  NULL,
+  [LicensePlates] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [NameDriver] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [PhoneNumber] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Email] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DonViCungCap] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
+)
+GO
+
+ALTER TABLE [dbo].[KhachHang_Xe] SET (LOCK_ESCALATION = TABLE)
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[LoaiVo]') AND type IN ('U'))
+	DROP TABLE [dbo].[LoaiVo]
+GO
+
+CREATE TABLE [dbo].[LoaiVo] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [Name] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Note] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Deleted] bit  NULL
+)
+GO
+
+ALTER TABLE [dbo].[LoaiVo] SET (LOCK_ESCALATION = TABLE)
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[LoaiXe]') AND type IN ('U'))
+	DROP TABLE [dbo].[LoaiXe]
+GO
+
+CREATE TABLE [dbo].[LoaiXe] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [Name] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Note] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Deleted] bit  NOT NULL
+)
+GO
+
+ALTER TABLE [dbo].[LoaiXe] SET (LOCK_ESCALATION = TABLE)
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sysdiagrams]') AND type IN ('U'))
+	DROP TABLE [dbo].[sysdiagrams]
+GO
+
+CREATE TABLE [dbo].[sysdiagrams] (
+  [name] sysname  NOT NULL,
+  [principal_id] int  NOT NULL,
+  [diagram_id] int  IDENTITY(1,1) NOT NULL,
+  [version] int  NULL,
+  [definition] varbinary(max)  NULL
+)
+GO
+
+ALTER TABLE [dbo].[sysdiagrams] SET (LOCK_ESCALATION = TABLE)
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[tblDMXeCongTy]') AND type IN ('U'))
+	DROP TABLE [dbo].[tblDMXeCongTy]
+GO
+
+CREATE TABLE [dbo].[tblDMXeCongTy] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [BienSoXe] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [LoaiDauKeo] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [SoRoMooc] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [LoaiSoMi] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [TenLaiXe] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [SoBangLai] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [SoDangKiem] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [SoBHTNDS] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [DinhMuc] float(53)  NULL,
+  [ThongSoKyThuat] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [GPS] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [SoDienThoai] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [SoCMT] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [NgayHetHanDK] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [NgayHetHanBHTNDS] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
+)
+GO
+
+ALTER TABLE [dbo].[tblDMXeCongTy] SET (LOCK_ESCALATION = TABLE)
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[tblKhachHang]') AND type IN ('U'))
+	DROP TABLE [dbo].[tblKhachHang]
+GO
+
+CREATE TABLE [dbo].[tblKhachHang] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [MaKhachHang] varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [TenKhachHang] nvarchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [TenVietTat] nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [LoaiKhachHang] nvarchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Email] varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Address] nvarchar(500) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [PhoneNumber] varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [CMT] varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [SoDuDauKy] float(53)  NULL,
+  [IDPhuongPhapThanhToan] bigint  NULL,
+  [HanMuc] float(53)  NULL,
+  [StartDatePay] datetime  NULL,
+  [EndDatePay] datetime  NULL,
+  [Deleted] bit  NULL,
+  [CreateDate] datetime  NULL,
+  [UpdateDate] datetime  NULL
+)
+GO
+
+ALTER TABLE [dbo].[tblKhachHang] SET (LOCK_ESCALATION = TABLE)
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[tblLoaiHinhVanChuyen]') AND type IN ('U'))
+	DROP TABLE [dbo].[tblLoaiHinhVanChuyen]
+GO
+
+CREATE TABLE [dbo].[tblLoaiHinhVanChuyen] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [TenVietTat] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [TenLoaiHinh] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
+)
+GO
+
+ALTER TABLE [dbo].[tblLoaiHinhVanChuyen] SET (LOCK_ESCALATION = TABLE)
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[tblLoaiNhanVien]') AND type IN ('U'))
+	DROP TABLE [dbo].[tblLoaiNhanVien]
+GO
+
+CREATE TABLE [dbo].[tblLoaiNhanVien] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [MaLoaiNhanVien] varbinary(max)  NULL,
+  [TenLoaiNhanVien] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [GhiChu] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
+)
+GO
+
+ALTER TABLE [dbo].[tblLoaiNhanVien] SET (LOCK_ESCALATION = TABLE)
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[tblNhanVien]') AND type IN ('U'))
+	DROP TABLE [dbo].[tblNhanVien]
+GO
+
+CREATE TABLE [dbo].[tblNhanVien] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [IDLoaiNhanVien] bigint  NULL,
+  [MaNhanVien] varbinary(max)  NULL,
+  [TenNhanVien] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [PhoneNumber] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Birthday] datetime  NULL,
+  [Gender] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Address] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Username] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Password] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
+)
+GO
+
+ALTER TABLE [dbo].[tblNhanVien] SET (LOCK_ESCALATION = TABLE)
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[tblPhuongPhapThanhToan]') AND type IN ('U'))
+	DROP TABLE [dbo].[tblPhuongPhapThanhToan]
+GO
+
+CREATE TABLE [dbo].[tblPhuongPhapThanhToan] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [TenThanhToan] nvarchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [GhiChu] nvarchar(1000) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
+)
+GO
+
+ALTER TABLE [dbo].[tblPhuongPhapThanhToan] SET (LOCK_ESCALATION = TABLE)
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[tblTienTe]') AND type IN ('U'))
+	DROP TABLE [dbo].[tblTienTe]
+GO
+
+CREATE TABLE [dbo].[tblTienTe] (
+  [ID] bigint  IDENTITY(1,1) NOT NULL,
+  [TenVietTat] varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [TenDayDu] nvarchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
+)
+GO
+
+ALTER TABLE [dbo].[tblTienTe] SET (LOCK_ESCALATION = TABLE)
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_upgraddiagrams]') AND type IN ('P', 'PC', 'RF', 'X'))
+	DROP PROCEDURE[dbo].[sp_upgraddiagrams]
+GO
+
+CREATE PROCEDURE [dbo].[sp_upgraddiagrams]
+	AS
+	BEGIN
+		IF OBJECT_ID(N'dbo.sysdiagrams') IS NOT NULL
+			return 0;
+	
+		CREATE TABLE dbo.sysdiagrams
+		(
+			name sysname NOT NULL,
+			principal_id int NOT NULL,	-- we may change it to varbinary(85)
+			diagram_id int PRIMARY KEY IDENTITY,
+			version int,
+	
+			definition varbinary(max)
+			CONSTRAINT UK_principal_name UNIQUE
+			(
+				principal_id,
+				name
+			)
+		);
+
+
+		/* Add this if we need to have some form of extended properties for diagrams */
+		/*
+		IF OBJECT_ID(N'dbo.sysdiagram_properties') IS NULL
+		BEGIN
+			CREATE TABLE dbo.sysdiagram_properties
+			(
+				diagram_id int,
+				name sysname,
+				value varbinary(max) NOT NULL
+			)
+		END
+		*/
+
+		IF OBJECT_ID(N'dbo.dtproperties') IS NOT NULL
+		begin
+			insert into dbo.sysdiagrams
+			(
+				[name],
+				[principal_id],
+				[version],
+				[definition]
+			)
+			select	 
+				convert(sysname, dgnm.[uvalue]),
+				DATABASE_PRINCIPAL_ID(N'dbo'),			-- will change to the sid of sa
+				0,							-- zero for old format, dgdef.[version],
+				dgdef.[lvalue]
+			from dbo.[dtproperties] dgnm
+				inner join dbo.[dtproperties] dggd on dggd.[property] = 'DtgSchemaGUID' and dggd.[objectid] = dgnm.[objectid]	
+				inner join dbo.[dtproperties] dgdef on dgdef.[property] = 'DtgSchemaDATA' and dgdef.[objectid] = dgnm.[objectid]
+				
+			where dgnm.[property] = 'DtgSchemaNAME' and dggd.[uvalue] like N'_EA3E6268-D998-11CE-9454-00AA00A3F36E_' 
+			return 2;
+		end
+		return 1;
+	END
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_helpdiagrams]') AND type IN ('P', 'PC', 'RF', 'X'))
+	DROP PROCEDURE[dbo].[sp_helpdiagrams]
+GO
+
+CREATE PROCEDURE [dbo].[sp_helpdiagrams]
+	(
+		@diagramname sysname = NULL,
+		@owner_id int = NULL
+	)
+	WITH EXECUTE AS N'dbo'
+	AS
+	BEGIN
+		DECLARE @user sysname
+		DECLARE @dboLogin bit
+		EXECUTE AS CALLER;
+			SET @user = USER_NAME();
+			SET @dboLogin = CONVERT(bit,IS_MEMBER('db_owner'));
+		REVERT;
+		SELECT
+			[Database] = DB_NAME(),
+			[Name] = name,
+			[ID] = diagram_id,
+			[Owner] = USER_NAME(principal_id),
+			[OwnerID] = principal_id
+		FROM
+			sysdiagrams
+		WHERE
+			(@dboLogin = 1 OR USER_NAME(principal_id) = @user) AND
+			(@diagramname IS NULL OR name = @diagramname) AND
+			(@owner_id IS NULL OR principal_id = @owner_id)
+		ORDER BY
+			4, 5, 1
+	END
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_helpdiagramdefinition]') AND type IN ('P', 'PC', 'RF', 'X'))
+	DROP PROCEDURE[dbo].[sp_helpdiagramdefinition]
+GO
+
+CREATE PROCEDURE [dbo].[sp_helpdiagramdefinition]
+	(
+		@diagramname 	sysname,
+		@owner_id	int	= null 		
+	)
+	WITH EXECUTE AS N'dbo'
+	AS
+	BEGIN
+		set nocount on
+
+		declare @theId 		int
+		declare @IsDbo 		int
+		declare @DiagId		int
+		declare @UIDFound	int
+	
+		if(@diagramname is null)
+		begin
+			RAISERROR (N'E_INVALIDARG', 16, 1);
+			return -1
+		end
+	
+		execute as caller;
+		select @theId = DATABASE_PRINCIPAL_ID();
+		select @IsDbo = IS_MEMBER(N'db_owner');
+		if(@owner_id is null)
+			select @owner_id = @theId;
+		revert; 
+	
+		select @DiagId = diagram_id, @UIDFound = principal_id from dbo.sysdiagrams where principal_id = @owner_id and name = @diagramname;
+		if(@DiagId IS NULL or (@IsDbo = 0 and @UIDFound <> @theId ))
+		begin
+			RAISERROR ('Diagram does not exist or you do not have permission.', 16, 1);
+			return -3
+		end
+
+		select version, definition FROM dbo.sysdiagrams where diagram_id = @DiagId ; 
+		return 0
+	END
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_creatediagram]') AND type IN ('P', 'PC', 'RF', 'X'))
+	DROP PROCEDURE[dbo].[sp_creatediagram]
+GO
+
+CREATE PROCEDURE [dbo].[sp_creatediagram]
+	(
+		@diagramname 	sysname,
+		@owner_id		int	= null, 	
+		@version 		int,
+		@definition 	varbinary(max)
+	)
+	WITH EXECUTE AS 'dbo'
+	AS
+	BEGIN
+		set nocount on
+	
+		declare @theId int
+		declare @retval int
+		declare @IsDbo	int
+		declare @userName sysname
+		if(@version is null or @diagramname is null)
+		begin
+			RAISERROR (N'E_INVALIDARG', 16, 1);
+			return -1
+		end
+	
+		execute as caller;
+		select @theId = DATABASE_PRINCIPAL_ID(); 
+		select @IsDbo = IS_MEMBER(N'db_owner');
+		revert; 
+		
+		if @owner_id is null
+		begin
+			select @owner_id = @theId;
+		end
+		else
+		begin
+			if @theId <> @owner_id
+			begin
+				if @IsDbo = 0
+				begin
+					RAISERROR (N'E_INVALIDARG', 16, 1);
+					return -1
+				end
+				select @theId = @owner_id
+			end
+		end
+		-- next 2 line only for test, will be removed after define name unique
+		if EXISTS(select diagram_id from dbo.sysdiagrams where principal_id = @theId and name = @diagramname)
+		begin
+			RAISERROR ('The name is already used.', 16, 1);
+			return -2
+		end
+	
+		insert into dbo.sysdiagrams(name, principal_id , version, definition)
+				VALUES(@diagramname, @theId, @version, @definition) ;
+		
+		select @retval = @@IDENTITY 
+		return @retval
+	END
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_renamediagram]') AND type IN ('P', 'PC', 'RF', 'X'))
+	DROP PROCEDURE[dbo].[sp_renamediagram]
+GO
+
+CREATE PROCEDURE [dbo].[sp_renamediagram]
+	(
+		@diagramname 		sysname,
+		@owner_id		int	= null,
+		@new_diagramname	sysname
+	
+	)
+	WITH EXECUTE AS 'dbo'
+	AS
+	BEGIN
+		set nocount on
+		declare @theId 			int
+		declare @IsDbo 			int
+		
+		declare @UIDFound 		int
+		declare @DiagId			int
+		declare @DiagIdTarg		int
+		declare @u_name			sysname
+		if((@diagramname is null) or (@new_diagramname is null))
+		begin
+			RAISERROR ('Invalid value', 16, 1);
+			return -1
+		end
+	
+		EXECUTE AS CALLER;
+		select @theId = DATABASE_PRINCIPAL_ID();
+		select @IsDbo = IS_MEMBER(N'db_owner'); 
+		if(@owner_id is null)
+			select @owner_id = @theId;
+		REVERT;
+	
+		select @u_name = USER_NAME(@owner_id)
+	
+		select @DiagId = diagram_id, @UIDFound = principal_id from dbo.sysdiagrams where principal_id = @owner_id and name = @diagramname 
+		if(@DiagId IS NULL or (@IsDbo = 0 and @UIDFound <> @theId))
+		begin
+			RAISERROR ('Diagram does not exist or you do not have permission.', 16, 1)
+			return -3
+		end
+	
+		-- if((@u_name is not null) and (@new_diagramname = @diagramname))	-- nothing will change
+		--	return 0;
+	
+		if(@u_name is null)
+			select @DiagIdTarg = diagram_id from dbo.sysdiagrams where principal_id = @theId and name = @new_diagramname
+		else
+			select @DiagIdTarg = diagram_id from dbo.sysdiagrams where principal_id = @owner_id and name = @new_diagramname
+	
+		if((@DiagIdTarg is not null) and  @DiagId <> @DiagIdTarg)
+		begin
+			RAISERROR ('The name is already used.', 16, 1);
+			return -2
+		end		
+	
+		if(@u_name is null)
+			update dbo.sysdiagrams set [name] = @new_diagramname, principal_id = @theId where diagram_id = @DiagId
+		else
+			update dbo.sysdiagrams set [name] = @new_diagramname where diagram_id = @DiagId
+		return 0
+	END
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_alterdiagram]') AND type IN ('P', 'PC', 'RF', 'X'))
+	DROP PROCEDURE[dbo].[sp_alterdiagram]
+GO
+
+CREATE PROCEDURE [dbo].[sp_alterdiagram]
+	(
+		@diagramname 	sysname,
+		@owner_id	int	= null,
+		@version 	int,
+		@definition 	varbinary(max)
+	)
+	WITH EXECUTE AS 'dbo'
+	AS
+	BEGIN
+		set nocount on
+	
+		declare @theId 			int
+		declare @retval 		int
+		declare @IsDbo 			int
+		
+		declare @UIDFound 		int
+		declare @DiagId			int
+		declare @ShouldChangeUID	int
+	
+		if(@diagramname is null)
+		begin
+			RAISERROR ('Invalid ARG', 16, 1)
+			return -1
+		end
+	
+		execute as caller;
+		select @theId = DATABASE_PRINCIPAL_ID();	 
+		select @IsDbo = IS_MEMBER(N'db_owner'); 
+		if(@owner_id is null)
+			select @owner_id = @theId;
+		revert;
+	
+		select @ShouldChangeUID = 0
+		select @DiagId = diagram_id, @UIDFound = principal_id from dbo.sysdiagrams where principal_id = @owner_id and name = @diagramname 
+		
+		if(@DiagId IS NULL or (@IsDbo = 0 and @theId <> @UIDFound))
+		begin
+			RAISERROR ('Diagram does not exist or you do not have permission.', 16, 1);
+			return -3
+		end
+	
+		if(@IsDbo <> 0)
+		begin
+			if(@UIDFound is null or USER_NAME(@UIDFound) is null) -- invalid principal_id
+			begin
+				select @ShouldChangeUID = 1 ;
+			end
+		end
+
+		-- update dds data			
+		update dbo.sysdiagrams set definition = @definition where diagram_id = @DiagId ;
+
+		-- change owner
+		if(@ShouldChangeUID = 1)
+			update dbo.sysdiagrams set principal_id = @theId where diagram_id = @DiagId ;
+
+		-- update dds version
+		if(@version is not null)
+			update dbo.sysdiagrams set version = @version where diagram_id = @DiagId ;
+
+		return 0
+	END
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_dropdiagram]') AND type IN ('P', 'PC', 'RF', 'X'))
+	DROP PROCEDURE[dbo].[sp_dropdiagram]
+GO
+
+CREATE PROCEDURE [dbo].[sp_dropdiagram]
+	(
+		@diagramname 	sysname,
+		@owner_id	int	= null
+	)
+	WITH EXECUTE AS 'dbo'
+	AS
+	BEGIN
+		set nocount on
+		declare @theId 			int
+		declare @IsDbo 			int
+		
+		declare @UIDFound 		int
+		declare @DiagId			int
+	
+		if(@diagramname is null)
+		begin
+			RAISERROR ('Invalid value', 16, 1);
+			return -1
+		end
+	
+		EXECUTE AS CALLER;
+		select @theId = DATABASE_PRINCIPAL_ID();
+		select @IsDbo = IS_MEMBER(N'db_owner'); 
+		if(@owner_id is null)
+			select @owner_id = @theId;
+		REVERT; 
+		
+		select @DiagId = diagram_id, @UIDFound = principal_id from dbo.sysdiagrams where principal_id = @owner_id and name = @diagramname 
+		if(@DiagId IS NULL or (@IsDbo = 0 and @UIDFound <> @theId))
+		begin
+			RAISERROR ('Diagram does not exist or you do not have permission.', 16, 1)
+			return -3
+		end
+	
+		delete from dbo.sysdiagrams where diagram_id = @DiagId;
+	
+		return 0;
+	END
+GO
+
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[fn_diagramobjects]') AND type IN ('FN', 'FS', 'FT', 'IF', 'TF'))
+	DROP FUNCTION[dbo].[fn_diagramobjects]
+GO
+
+CREATE FUNCTION [dbo].[fn_diagramobjects]() 
+	RETURNS int
+	WITH EXECUTE AS N'dbo'
+	AS
+	BEGIN
+		declare @id_upgraddiagrams		int
+		declare @id_sysdiagrams			int
+		declare @id_helpdiagrams		int
+		declare @id_helpdiagramdefinition	int
+		declare @id_creatediagram	int
+		declare @id_renamediagram	int
+		declare @id_alterdiagram 	int 
+		declare @id_dropdiagram		int
+		declare @InstalledObjects	int
+
+		select @InstalledObjects = 0
+
+		select 	@id_upgraddiagrams = object_id(N'dbo.sp_upgraddiagrams'),
+			@id_sysdiagrams = object_id(N'dbo.sysdiagrams'),
+			@id_helpdiagrams = object_id(N'dbo.sp_helpdiagrams'),
+			@id_helpdiagramdefinition = object_id(N'dbo.sp_helpdiagramdefinition'),
+			@id_creatediagram = object_id(N'dbo.sp_creatediagram'),
+			@id_renamediagram = object_id(N'dbo.sp_renamediagram'),
+			@id_alterdiagram = object_id(N'dbo.sp_alterdiagram'), 
+			@id_dropdiagram = object_id(N'dbo.sp_dropdiagram')
+
+		if @id_upgraddiagrams is not null
+			select @InstalledObjects = @InstalledObjects + 1
+		if @id_sysdiagrams is not null
+			select @InstalledObjects = @InstalledObjects + 2
+		if @id_helpdiagrams is not null
+			select @InstalledObjects = @InstalledObjects + 4
+		if @id_helpdiagramdefinition is not null
+			select @InstalledObjects = @InstalledObjects + 8
+		if @id_creatediagram is not null
+			select @InstalledObjects = @InstalledObjects + 16
+		if @id_renamediagram is not null
+			select @InstalledObjects = @InstalledObjects + 32
+		if @id_alterdiagram  is not null
+			select @InstalledObjects = @InstalledObjects + 64
+		if @id_dropdiagram is not null
+			select @InstalledObjects = @InstalledObjects + 128
+		
+		return @InstalledObjects 
+	END
+GO
+
+DBCC CHECKIDENT ('[dbo].[HangTau]', RESEED, 1)
+GO
+
+DBCC CHECKIDENT ('[dbo].[KhachHang_Bank]', RESEED, 1)
+GO
+
+ALTER TABLE [dbo].[KhachHang_Bank] ADD CONSTRAINT [PK_KhachHang_Bank] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+DBCC CHECKIDENT ('[dbo].[KhachHang_Contact]', RESEED, 1)
+GO
+
+DBCC CHECKIDENT ('[dbo].[KhachHang_Kho]', RESEED, 1)
+GO
+
+ALTER TABLE [dbo].[KhachHang_Kho] ADD CONSTRAINT [PK_KhachHang_Kho] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+DBCC CHECKIDENT ('[dbo].[KhachHang_Xe]', RESEED, 1)
+GO
+
+ALTER TABLE [dbo].[KhachHang_Xe] ADD CONSTRAINT [PK_KhachHang_Xe] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+DBCC CHECKIDENT ('[dbo].[LoaiVo]', RESEED, 1)
+GO
+
+ALTER TABLE [dbo].[LoaiVo] ADD CONSTRAINT [PK__LoaiVo__3214EC2776439FE5] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+DBCC CHECKIDENT ('[dbo].[LoaiXe]', RESEED, 1)
+GO
+
+ALTER TABLE [dbo].[LoaiXe] ADD CONSTRAINT [PK__LoaiXe__3214EC2769EFA7C8] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+DBCC CHECKIDENT ('[dbo].[sysdiagrams]', RESEED, 1)
+GO
+
+ALTER TABLE [dbo].[sysdiagrams] ADD CONSTRAINT [UK_principal_name] UNIQUE NONCLUSTERED ([principal_id] ASC, [name] ASC)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[sysdiagrams] ADD CONSTRAINT [PK__sysdiagr__C2B05B6144F529D9] PRIMARY KEY CLUSTERED ([diagram_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+DBCC CHECKIDENT ('[dbo].[tblDMXeCongTy]', RESEED, 46)
+GO
+
+DBCC CHECKIDENT ('[dbo].[tblKhachHang]', RESEED, 17)
+GO
+
+ALTER TABLE [dbo].[tblKhachHang] ADD CONSTRAINT [PK_tblKhachHang] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+DBCC CHECKIDENT ('[dbo].[tblLoaiHinhVanChuyen]', RESEED, 9)
+GO
+
+
+DBCC CHECKIDENT ('[dbo].[tblLoaiNhanVien]', RESEED, 4)
+GO
+
+
+ALTER TABLE [dbo].[tblLoaiNhanVien] ADD CONSTRAINT [PK_tblLoaiNhanVien] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+
+DBCC CHECKIDENT ('[dbo].[tblNhanVien]', RESEED, 1)
+GO
+
+
+ALTER TABLE [dbo].[tblNhanVien] ADD CONSTRAINT [PK_tblNhanVien] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+
+DBCC CHECKIDENT ('[dbo].[tblPhuongPhapThanhToan]', RESEED, 2)
+GO
+
+
+ALTER TABLE [dbo].[tblPhuongPhapThanhToan] ADD CONSTRAINT [PK_tblPhuongPhapThanhToan] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+
+DBCC CHECKIDENT ('[dbo].[tblTienTe]', RESEED, 9)
+GO
+
+
+ALTER TABLE [dbo].[tblTienTe] ADD CONSTRAINT [PK_tblTienTe] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
+ON [PRIMARY]
+GO
+
+
+ALTER TABLE [dbo].[KhachHang_Bank] ADD CONSTRAINT [FK_KhachHang_Bank_tblKhachHang] FOREIGN KEY ([IDKhachHang]) REFERENCES [dbo].[tblKhachHang] ([ID]) ON DELETE NO ACTION ON UPDATE NO ACTION
+GO
+
+ALTER TABLE [dbo].[KhachHang_Bank] ADD CONSTRAINT [FK_KhachHang_Bank_tblTienTe] FOREIGN KEY ([IDTienTe]) REFERENCES [dbo].[tblTienTe] ([ID]) ON DELETE NO ACTION ON UPDATE NO ACTION
+GO
+
+
+ALTER TABLE [dbo].[KhachHang_Contact] ADD CONSTRAINT [FK_KhachHang_Contact_tblKhachHang] FOREIGN KEY ([IDKhachHang]) REFERENCES [dbo].[tblKhachHang] ([ID]) ON DELETE NO ACTION ON UPDATE NO ACTION
+GO
+
+
+ALTER TABLE [dbo].[KhachHang_Kho] ADD CONSTRAINT [FK_KhachHang_Kho_tblKhachHang] FOREIGN KEY ([IDKhachHang]) REFERENCES [dbo].[tblKhachHang] ([ID]) ON DELETE NO ACTION ON UPDATE NO ACTION
+GO
+
+
+ALTER TABLE [dbo].[KhachHang_Xe] ADD CONSTRAINT [FK_KhachHang_Xe_tblKhachHang] FOREIGN KEY ([IDKhachHang]) REFERENCES [dbo].[tblKhachHang] ([ID]) ON DELETE NO ACTION ON UPDATE NO ACTION
+GO
+
+
+ALTER TABLE [dbo].[tblKhachHang] ADD CONSTRAINT [fk_tblKhachHang_phuong_phap_thanh_toan] FOREIGN KEY ([IDPhuongPhapThanhToan]) REFERENCES [dbo].[tblPhuongPhapThanhToan] ([ID]) ON DELETE NO ACTION ON UPDATE NO ACTION
+GO
+
+
+ALTER TABLE [dbo].[tblNhanVien] ADD CONSTRAINT [FK_tblNhanVien_tblLoaiNhanVien] FOREIGN KEY ([IDLoaiNhanVien]) REFERENCES [dbo].[tblLoaiNhanVien] ([ID]) ON DELETE NO ACTION ON UPDATE NO ACTION
+GO
+

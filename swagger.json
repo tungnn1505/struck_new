@@ -1,0 +1,2322 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Yet Another Node.js Blogg Application API",
+        "description": "Yet Another Node.js Blogg Application API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:1004",
+    "basePath": "/",
+    "tags": [{
+            "name": "auth",
+            "description": "API authorization"
+        },
+        {
+            "name": "Customer",
+            "description": "API for customer in the system"
+        },
+        {
+            "name": "Company car",
+            "description": "In the system"
+        },
+        {
+            "name": "Shell type",
+            "description": "In the system"
+        },
+        {
+            "name": "Car type",
+            "description": "In the system"
+        },
+        {
+            "name": "Carriers",
+            "description": "In the system"
+        },
+        {
+            "name": "Order type",
+            "description": "In the system"
+        },
+        {
+            "name": "Payment methods",
+            "description": "In the system"
+        },
+        {
+            "name": "Staff type",
+            "description": "In the system"
+        },
+        {
+            "name": "Currency",
+            "description": "In the system"
+        },
+        {
+            "name": "Staff",
+            "description": "In the system"
+        },
+        {
+            "name": "database",
+            "description": "Create database for customer"
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "security": {
+        "Bearer": []
+    },
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Login user",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "login",
+                    "in": "body",
+                    "description": "User login",
+                    "schema": {
+                        "$ref": "#/definitions/auth"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Đăng nhập thành công",
+                        "schema": {
+                            "$ref": "#/definitions/loginOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/loginDB": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Login admin",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "login",
+                    "in": "body",
+                    "description": "User login",
+                    "schema": {
+                        "$ref": "#/definitions/auth"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Đăng nhập thành công",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/changePassword": {
+            "patch": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Change passwprd",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Change password",
+                    "in": "body",
+                    "description": "Change password",
+                    "schema": {
+                        "$ref": "#/definitions/changePassword"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Đổi mật khẩu thành công",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/auth/CustomerDB": {
+            "get": {
+                "parameters": [{
+                    "name": "itemPerPage",
+                    "description": "Số lượng hiển thị",
+                    "type": "integer",
+                    "in": "query"
+                }, {
+                    "name": "page",
+                    "description": "Số trang",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Lấy danh sách khách hàng trong db admin",
+                "description": "",
+                "operationId": "Lấy danh sách khách hàng trong db admin",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/auth/decodeToken": {
+            "get": {
+                "parameters": [],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Lay thong tin user tu token",
+                "description": "",
+                "operationId": "Lay thong tin user tu token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/cutomer": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "description": "Add customer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Customer",
+                    "in": "body",
+                    "description": "Them moi khach hang",
+                    "schema": {
+                        "$ref": "#/definitions/customerAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Them moi thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "get": {
+                "parameters": [{
+                    "name": "itemPerPage",
+                    "description": "Số lượng hiển thị",
+                    "type": "integer",
+                    "in": "query"
+                }, {
+                    "name": "page",
+                    "description": "Số trang",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "",
+                "description": "Lay danh sach khach hang",
+                "operationId": "Lay danh sach khach hang",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Customer"
+                ],
+                "description": "Update customer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Customer",
+                    "in": "body",
+                    "description": "Cap nhat khach hang",
+                    "schema": {
+                        "$ref": "#/definitions/customerAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Cap nhat thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Customer"
+                ],
+                "description": "Delete customer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "listID",
+                    "description": "Số lượng hiển thị",
+                    "type": "array",
+                    "in": "query"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Xoa thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/cutomers": {
+            "get": {
+                "parameters": [{
+                    "name": "id",
+                    "description": "Id",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "",
+                "description": "Lay chi tiet khach hang",
+                "operationId": "Lay chi tiet khach hang",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/companycar": {
+            "post": {
+                "tags": [
+                    "Company car"
+                ],
+                "description": "Company car",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Company car",
+                    "in": "body",
+                    "description": "Company car",
+                    "schema": {
+                        "$ref": "#/definitions/companycar"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Thêm thành công",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Company car"
+                ],
+                "description": "Company car",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Company car",
+                    "in": "body",
+                    "description": "Company car",
+                    "schema": {
+                        "$ref": "#/definitions/companycar"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Cập nhật thành công",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "get": {
+                "tags": [
+                    "Company car"
+                ],
+                "description": "Company car",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "itemPerPage",
+                    "description": "Số lượng hiển thị",
+                    "type": "integer",
+                    "in": "query"
+                }, {
+                    "name": "page",
+                    "description": "Số trang",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "$ref": "#/definitions/companycar"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Company car"
+                ],
+                "description": "Delete Company car",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "listID",
+                    "description": "Số lượng hiển thị",
+                    "type": "array",
+                    "in": "query"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Xoa thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/companycars": {
+            "get": {
+                "parameters": [{
+                    "name": "id",
+                    "description": "Id",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Company car"
+                ],
+                "summary": "",
+                "description": "Lay chi xe cong ty",
+                "operationId": "Lay chi xe cong ty",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/shelltype": {
+            "post": {
+                "tags": [
+                    "Shell type"
+                ],
+                "description": "Add shell type",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Customer",
+                    "in": "body",
+                    "description": "Them moi loai vo",
+                    "schema": {
+                        "$ref": "#/definitions/carAndShellTypeAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Them moi thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "get": {
+                "parameters": [{
+                    "name": "itemPerPage",
+                    "description": "Số lượng hiển thị",
+                    "type": "integer",
+                    "in": "query"
+                }, {
+                    "name": "page",
+                    "description": "Số trang",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Shell type"
+                ],
+                "summary": "",
+                "description": "Lay danh sach loai vo",
+                "operationId": "Lay danh sach loai vo",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/carAndShellTypeAddUpdate"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Shell type"
+                ],
+                "description": "Update shell type",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Shell type",
+                    "in": "body",
+                    "description": "Cap nhat loai vo",
+                    "schema": {
+                        "$ref": "#/definitions/carAndShellTypeAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Cap nhat thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Shell type"
+                ],
+                "description": "Delete shell type",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "listID",
+                    "description": "Số lượng hiển thị",
+                    "type": "array",
+                    "in": "query"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Xoa thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/shelltypes": {
+            "get": {
+                "parameters": [{
+                    "name": "id",
+                    "description": "Id",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Shell type"
+                ],
+                "summary": "",
+                "description": "Lay chi loai vo",
+                "operationId": "Lay chi loai vo",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/cartype": {
+            "post": {
+                "tags": [
+                    "Car type"
+                ],
+                "description": "Add car type",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Customer",
+                    "in": "body",
+                    "description": "Them moi loai xe",
+                    "schema": {
+                        "$ref": "#/definitions/carAndShellTypeAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Them moi thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "get": {
+                "parameters": [{
+                    "name": "itemPerPage",
+                    "description": "Số lượng hiển thị",
+                    "type": "integer",
+                    "in": "query"
+                }, {
+                    "name": "page",
+                    "description": "Số trang",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Car type"
+                ],
+                "summary": "",
+                "description": "Lay danh sach loai xe",
+                "operationId": "Lay danh sach loai xe",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/carAndShellTypeAddUpdate"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Car type"
+                ],
+                "description": "Update shell type",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Shell type",
+                    "in": "body",
+                    "description": "Cap nhat loai xe",
+                    "schema": {
+                        "$ref": "#/definitions/carAndShellTypeAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Cap nhat thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Car type"
+                ],
+                "description": "Delete car type",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "listID",
+                    "description": "Số lượng hiển thị",
+                    "type": "array",
+                    "in": "query"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Xoa thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/carriers": {
+            "post": {
+                "tags": [
+                    "Carriers"
+                ],
+                "description": "Add carriers",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Customer",
+                    "in": "body",
+                    "description": "Them moi hang tau",
+                    "schema": {
+                        "$ref": "#/definitions/carriersAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Them moi thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "get": {
+                "parameters": [{
+                    "name": "itemPerPage",
+                    "description": "Số lượng hiển thị",
+                    "type": "integer",
+                    "in": "query"
+                }, {
+                    "name": "page",
+                    "description": "Số trang",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Carriers"
+                ],
+                "summary": "",
+                "description": "Lay danh sach hang tau",
+                "operationId": "Lay danh sach hang tau",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/carriersAddUpdate"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Carriers"
+                ],
+                "description": "Update Carriers",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Shell type",
+                    "in": "body",
+                    "description": "Cap nhat hang tau",
+                    "schema": {
+                        "$ref": "#/definitions/carriersAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Cap nhat thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Carriers"
+                ],
+                "description": "Delete Carriers",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "listID",
+                    "description": "Số lượng hiển thị",
+                    "type": "array",
+                    "in": "query"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Xoa thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/carriers/id": {
+            "get": {
+                "parameters": [{
+                    "name": "id",
+                    "description": "Id",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Car type"
+                ],
+                "summary": "",
+                "description": "Lay chi tiet hang tau ",
+                "operationId": "Lay chi tiet hang tau ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/ordertype": {
+            "post": {
+                "tags": [
+                    "Order type"
+                ],
+                "description": "Add Order type",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Customer",
+                    "in": "body",
+                    "description": "Them moi loai hinh van chuyen",
+                    "schema": {
+                        "$ref": "#/definitions/orderTypeAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Them moi thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "get": {
+                "parameters": [{
+                    "name": "itemPerPage",
+                    "description": "Số lượng hiển thị",
+                    "type": "integer",
+                    "in": "query"
+                }, {
+                    "name": "page",
+                    "description": "Số trang",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Order type"
+                ],
+                "summary": "",
+                "description": "Lay danh sach loai hinh van chuyen",
+                "operationId": "Lay danh sach loai hinh van chuyen",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/orderTypeAddUpdate"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Order type"
+                ],
+                "description": "Update Carriers",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Shell type",
+                    "in": "body",
+                    "description": "Cap nhat phuong thuc thanh toan",
+                    "schema": {
+                        "$ref": "#/definitions/orderTypeAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Cap nhat thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Order type"
+                ],
+                "description": "Delete Order type",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "listID",
+                    "description": "Số lượng hiển thị",
+                    "type": "array",
+                    "in": "query"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Xoa thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/ordertypes": {
+            "get": {
+                "parameters": [{
+                    "name": "id",
+                    "description": "Id",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Order type"
+                ],
+                "summary": "",
+                "description": "Lay chi tiet loai hinh van chuyen ",
+                "operationId": "Lay chi tiet loai hinh van chuyen ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/paymentmethods": {
+            "post": {
+                "tags": [
+                    "Payment methods"
+                ],
+                "description": "Add Payment methods",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Customer",
+                    "in": "body",
+                    "description": "Them moi phuong thuc thanh toan",
+                    "schema": {
+                        "$ref": "#/definitions/paymentMethodsAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Them moi thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "get": {
+                "parameters": [{
+                    "name": "itemPerPage",
+                    "description": "Số lượng hiển thị",
+                    "type": "integer",
+                    "in": "query"
+                }, {
+                    "name": "page",
+                    "description": "Số trang",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Payment methods"
+                ],
+                "summary": "",
+                "description": "Lay danh sach phuong thuc thanh toan",
+                "operationId": "Lay danh sach phuong thuc thanh toan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/paymentMethodsAddUpdate"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Payment methods"
+                ],
+                "description": "Update payment methods",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Shell type",
+                    "in": "body",
+                    "description": "Cap nhat phuong thuc thanh toan",
+                    "schema": {
+                        "$ref": "#/definitions/paymentMethodsAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Cap nhat thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Payment methods"
+                ],
+                "description": "Delete payment methods",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "listID",
+                    "description": "Số lượng hiển thị",
+                    "type": "array",
+                    "in": "query"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Xoa thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/paymentmethods/id": {
+            "get": {
+                "parameters": [{
+                    "name": "id",
+                    "description": "Id",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Payment methods"
+                ],
+                "summary": "",
+                "description": "Lay chi tiet phuong thuc thanh toan ",
+                "operationId": "Lay chi tiet phuong thuc thanh toan ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/stafftype": {
+            "post": {
+                "tags": [
+                    "Staff type"
+                ],
+                "description": "Add staff type",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Customer",
+                    "in": "body",
+                    "description": "Them moi loai nhan vien",
+                    "schema": {
+                        "$ref": "#/definitions/staffTypeAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Them moi thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "get": {
+                "parameters": [{
+                    "name": "itemPerPage",
+                    "description": "Số lượng hiển thị",
+                    "type": "integer",
+                    "in": "query"
+                }, {
+                    "name": "page",
+                    "description": "Số trang",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Staff type"
+                ],
+                "summary": "",
+                "description": "Lay danh sach loai nhan vien",
+                "operationId": "Lay danh sach loai nhan vien",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/staffTypeAddUpdate"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Staff type"
+                ],
+                "description": "Update staff type",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Shell type",
+                    "in": "body",
+                    "description": "Cap nhat loai nhan vien",
+                    "schema": {
+                        "$ref": "#/definitions/staffTypeAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Cap nhat thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Staff type"
+                ],
+                "description": "Delete staff type",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "listID",
+                    "description": "Số lượng hiển thị",
+                    "type": "array",
+                    "in": "query"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Xoa thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/stafftypes": {
+            "get": {
+                "parameters": [{
+                    "name": "id",
+                    "description": "Id",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Staff type"
+                ],
+                "summary": "",
+                "description": "Lay chi tiet kieu nhan vien ",
+                "operationId": "Lay chi tiet kieu nhan vien ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/currency": {
+            "post": {
+                "tags": [
+                    "Currency"
+                ],
+                "description": "Add currency",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Customer",
+                    "in": "body",
+                    "description": "Them moi loai tien te",
+                    "schema": {
+                        "$ref": "#/definitions/currencyAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Them moi thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "get": {
+                "parameters": [{
+                    "name": "itemPerPage",
+                    "description": "Số lượng hiển thị",
+                    "type": "integer",
+                    "in": "query"
+                }, {
+                    "name": "page",
+                    "description": "Số trang",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "",
+                "description": "Lay danh sach tien te",
+                "operationId": "Lay danh sach tien te",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/currencyAddUpdate"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Currency"
+                ],
+                "description": "Update currency",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Currency",
+                    "in": "body",
+                    "description": "Cap nhat tien te",
+                    "schema": {
+                        "$ref": "#/definitions/currencyAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Cap nhat thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Currency"
+                ],
+                "description": "Delete curency",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "listID",
+                    "description": "Số lượng hiển thị",
+                    "type": "array",
+                    "in": "query"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Xoa thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/currencys": {
+            "get": {
+                "parameters": [{
+                    "name": "id",
+                    "description": "Id",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "",
+                "description": "Lay chi tiet tien te ",
+                "operationId": "Lay chi tiet tien te ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/staff": {
+            "post": {
+                "tags": [
+                    "Staff"
+                ],
+                "description": "Add Staff",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Customer",
+                    "in": "body",
+                    "description": "Them moi nhan vien",
+                    "schema": {
+                        "$ref": "#/definitions/staffAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Them moi thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "get": {
+                "parameters": [{
+                    "name": "itemPerPage",
+                    "description": "Số lượng hiển thị",
+                    "type": "integer",
+                    "in": "query"
+                }, {
+                    "name": "page",
+                    "description": "Số trang",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "",
+                "description": "Lay danh sach nhan vien",
+                "operationId": "Lay danh sach nhan vien",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/staffAddUpdate"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Staff"
+                ],
+                "description": "Update staff",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Staff",
+                    "in": "body",
+                    "description": "Cap nhat nhan vien",
+                    "schema": {
+                        "$ref": "#/definitions/staffAddUpdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Cap nhat thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Staff"
+                ],
+                "description": "Delete staff",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "listID",
+                    "description": "Số lượng hiển thị",
+                    "type": "array",
+                    "in": "query"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Xoa thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/staffs/id": {
+            "get": {
+                "parameters": [{
+                    "name": "id",
+                    "description": "Id",
+                    "type": "integer",
+                    "in": "query"
+                }],
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "",
+                "description": "Lay chi tiet nhan vien ",
+                "operationId": "Lay chi tiet nhan vien ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/staffs": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "",
+                "description": "Lay danh sach ten nhan vien ",
+                "operationId": "Lay danh sach ten nhan vien ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy dữ liệu thành công",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "result": {
+                                    "$ref": "#/definitions/outputBasic"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/database": {
+            "post": {
+                "tags": [
+                    "database"
+                ],
+                "description": "Create database",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "login",
+                    "in": "body",
+                    "description": "Create database",
+                    "schema": {
+                        "$ref": "#/definitions/createDatabase"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Tạo database thành công",
+                        "schema": {
+                            "$ref": "#/definitions/loginOutput"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+        },
+        "api_key": {
+            "type": "apiKey",
+            "name": "api_key",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "auth": {
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "userName": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "loginOutput": {
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputBasic": {
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "loginDB": {
+            "properties": {
+                "userName": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "page": {
+            "type": "object",
+            "properties": {
+                "itemPerPage": {
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                }
+            },
+            "xml": {
+                "name": "Company"
+            }
+        },
+        "changePassword": {
+            "properties": {
+                "userName": {
+                    "type": "string"
+                },
+                "rePassword": {
+                    "type": "string"
+                },
+                "newPassword": {
+                    "type": "string"
+                },
+                "staffID": {
+                    "type": "string"
+                },
+                "dbName": {
+                    "type": "string"
+                }
+            }
+        },
+        "customerAddUpdate": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "maKhachHang": {
+                    "type": "string"
+                },
+                "tenKhachHang": {
+                    "type": "string"
+                },
+                "tenVietTat": {
+                    "type": "string"
+                },
+                "loaiKhachHang": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "cmt": {
+                    "type": "string"
+                },
+                "soDuDauKy": {
+                    "type": "float"
+                },
+                "idPhuongPhapThanhToan": {
+                    "type": "integer"
+                },
+                "hanMuc": {
+                    "type": "float"
+                },
+                "startDatePay": {
+                    "type": "float"
+                },
+                "endDatePay": {
+                    "type": "float"
+                },
+                "createDate": {
+                    "type": "string"
+                },
+                "updateDate": {
+                    "type": "string"
+                },
+                "deleted": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "companycar": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "bienSoXe": {
+                    "type": "string"
+                },
+                "loaiDauKeo": {
+                    "type": "string"
+                },
+                "soRoMooc": {
+                    "type": "string"
+                },
+                "loaiSoMi": {
+                    "type": "string"
+                },
+                "gps": {
+                    "type": "string"
+                },
+                "tenLaiXe": {
+                    "type": "string"
+                },
+                "soCMT": {
+                    "type": "string"
+                },
+                "soBangLai": {
+                    "type": "string"
+                },
+                "soDangKiem": {
+                    "type": "string"
+                },
+                "ngayHetHanDK": {
+                    "type": "string"
+                },
+                "soBHTNDS": {
+                    "type": "string"
+                },
+                "ngayHetHanBHTNDS": {
+                    "type": "string"
+                },
+                "dinhMuc": {
+                    "type": "float"
+                },
+                "thongSoKyThuat": {
+                    "type": "string"
+                }
+            }
+        },
+        "listIDDelete": {
+            "type": "object",
+            "properties": {
+                "listID": {
+                    "type": "array"
+                }
+            },
+            "xml": {
+                "name": "Company"
+            }
+        },
+        "carAndShellTypeAddUpdate": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "deleted": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "carriersAddUpdate": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "beachContainer": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "deleted": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "orderTypeAddUpdate": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "tenLoaiHinh": {
+                    "type": "string"
+                },
+                "tenVietTat": {
+                    "type": "string"
+                }
+            }
+        },
+        "paymentMethodsAddUpdate": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "tenThanhToan": {
+                    "type": "string"
+                },
+                "ghiChu": {
+                    "type": "string"
+                }
+            }
+        },
+        "staffTypeAddUpdate": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "maLoaiNhanVien": {
+                    "type": "string"
+                },
+                "tenLoaiNhanVien": {
+                    "type": "string"
+                },
+                "ghiChu": {
+                    "type": "string"
+                }
+            }
+        },
+        "currencyAddUpdate": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "tenVietTat": {
+                    "type": "string"
+                },
+                "tenDayDu": {
+                    "type": "string"
+                }
+            }
+        },
+        "staffAddUpdate": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "idLoaiNhanVien": {
+                    "type": "string"
+                },
+                "tenNhanVien": {
+                    "type": "string"
+                },
+                "maNhanVien": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                },
+                "birthday": {
+                    "type": "date"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "detail": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "createDatabase": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "shortName": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "fax": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "contactName": {
+                    "type": "string"
+                },
+                "contactPhone": {
+                    "type": "string"
+                },
+                "keyConnect": {
+                    "type": "string"
+                },
+                "userName": {
+                    "type": "string"
+                },
+                "keyLicense": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "nameDB": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "Bearer": {
+                "type": "http",
+                "scheme": "basic",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+
+
+}
