@@ -95,7 +95,7 @@ module.exports = {
                             res.json(Result.ALERADY_EXIST_DATA);
                         else {
                             mtblKhachHang(db).create({
-                                MaKhachHang: body.maKhachHang ? body.maKhachHang : null,
+                                MaKhachHang: body.loaiKhachHang + '.' + body.cmt,
                                 TenKhachHang: body.tenKhachHang ? body.tenKhachHang : null,
                                 TenVietTat: body.tenVietTat ? body.tenVietTat : null,
                                 LoaiKhachHang: body.loaiKhachHang ? body.loaiKhachHang : null,

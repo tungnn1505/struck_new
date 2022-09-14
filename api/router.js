@@ -4,10 +4,11 @@ module.exports = function(app) {
     app.route('/auth/login').post(login.login);
     app.route('/auth/loginDB').post(login.loginDB);
     app.route('/auth/changePassword').patch(login.changePassword);
-    app.route('/auth/CustomerDB').get(login.getListCustomerDB);
     app.route('/auth/decodeToken').get(checkToken.decodeToken);
 
-    app.route('/database').post(checkToken.checkToken, login.createDatabase);
+    var customerDBCtl = require('./controllers/customerDB');
+    app.route('/cutomer').post(checkToken.checkToken, customerDBCtl.createDatabase);
+    app.route('/cutomer').get(checkToken.checkToken, customerDBCtl.getListCustomerDB);
 
     var customerCtl = require('./controllers/customer');
     app.route('/cutomer').get(checkToken.checkToken, customerCtl.getListtblKhachHang);
