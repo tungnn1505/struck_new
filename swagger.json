@@ -20,6 +20,10 @@
             "description": "API for customer in the system"
         },
         {
+            "name": "CustomerDB",
+            "description": "API for customerDB in the system"
+        },
+        {
             "name": "Company car",
             "description": "In the system"
         },
@@ -58,6 +62,10 @@
         {
             "name": "database",
             "description": "Create database for customer"
+        },
+        {
+            "name": "Order",
+            "description": "Order manager"
         }
     ],
     "schemes": [
@@ -359,6 +367,36 @@
                 }]
             }
         },
+        "/cutomerDB": {
+            "post": {
+                "tags": [
+                    "CustomerDB"
+                ],
+                "description": "Add customerDB",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Customer",
+                    "in": "body",
+                    "description": "Them moi khach hang",
+                    "schema": {
+                        "$ref": "#/definitions/addCustomerDB"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Them moi thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
         "/cutomers": {
             "get": {
                 "parameters": [{
@@ -389,6 +427,36 @@
                                     "$ref": "#/definitions/outputBasic"
                                 }
                             }
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/cutomerDB/changeStatus": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "description": "Change status customer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Customer",
+                    "in": "body",
+                    "description": "Thay doi trang tahi",
+                    "schema": {
+                        "$ref": "#/definitions/changStatus"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Them moi thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/outputBasic"
                         }
                     }
                 },
@@ -1874,6 +1942,36 @@
                     }
                 }
             }
+        },
+        "/order": {
+            "post": {
+                "tags": [
+                    "Order"
+                ],
+                "description": "Add Order",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Order",
+                    "in": "body",
+                    "description": "Create Order",
+                    "schema": {
+                        "$ref": "#/definitions/addOrder"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Them moi thanh cong",
+                        "schema": {
+                            "$ref": "#/definitions/addOrder"
+                        }
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
         }
     },
     "securityDefinitions": {
@@ -1981,7 +2079,7 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "maKhachHang": {
                     "type": "string"
@@ -2036,7 +2134,7 @@
         "companycar": {
             "properties": {
                 "id": {
-                    "type": "string",
+                    "type": "integer",
                     "uniqueItems": true
                 },
                 "bienSoXe": {
@@ -2101,7 +2199,7 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "name": {
                     "type": "string"
@@ -2121,7 +2219,7 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "name": {
                     "type": "string"
@@ -2144,7 +2242,7 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "tenLoaiHinh": {
                     "type": "string"
@@ -2161,7 +2259,7 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "tenThanhToan": {
                     "type": "string"
@@ -2178,7 +2276,7 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "maLoaiNhanVien": {
                     "type": "string"
@@ -2198,7 +2296,7 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "tenVietTat": {
                     "type": "string"
@@ -2215,7 +2313,7 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "idLoaiNhanVien": {
                     "type": "string"
@@ -2253,7 +2351,7 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "string"
+                    "type": "integer"
                 }
             }
         },
@@ -2298,6 +2396,232 @@
                 },
                 "status": {
                     "type": "string"
+                },
+                "nameDB": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "addOrder": {
+            "xml": {
+                "name": "Order"
+            },
+            "type": "object",
+            "properties": {
+                "idHangTau": {
+                    "type": "string"
+                },
+                "trongLuong": {
+                    "type": "float"
+                },
+                "idLoaiVo": {
+                    "type": "string"
+                },
+                "noVo": {
+                    "type": "integer"
+                },
+                "idNVKH": {
+                    "type": "date"
+                },
+                "idNVCSKH": {
+                    "type": "string"
+                },
+                "idNhaXe": {
+                    "type": "string"
+                },
+                "idKhachHang": {
+                    "type": "string"
+                },
+                "idLoaiHinhVanChuyen": {
+                    "type": "string"
+                },
+                "ngayDong": {
+                    "type": "string"
+                },
+                "gioDong": {
+                    "type": "string"
+                },
+                "noiDong": {
+                    "type": "string"
+                },
+                "ngayTra": {
+                    "type": "string"
+                },
+                "gioTra": {
+                    "type": "string"
+                },
+                "noiTra": {
+                    "type": "string"
+                },
+                "noCont": {
+                    "type": "string"
+                },
+                "noSeal": {
+                    "type": "string"
+                },
+                "licensePlates": {
+                    "type": "string"
+                },
+                "nameDriver": {
+                    "type": "string"
+                },
+                "phoneNumberDriver": {
+                    "type": "string"
+                },
+                "noteNLH": {
+                    "type": "string"
+                },
+                "noteOrder": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "idDonHang": {
+                    "type": "string",
+                    "example": "Khi nối đơn gửi về tạo mã đơn hàng tự động"
+                }
+            }
+        },
+        "updateOrder": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "ID order"
+                },
+                "idHangTau": {
+                    "type": "string"
+                },
+                "trongLuong": {
+                    "type": "string"
+                },
+                "idLoaiVo": {
+                    "type": "string"
+                },
+                "noVo": {
+                    "type": "string"
+                },
+                "idNVKH": {
+                    "type": "date"
+                },
+                "idNVCSKH": {
+                    "type": "string"
+                },
+                "idNhaXe": {
+                    "type": "string"
+                },
+                "idKhachHang": {
+                    "type": "string"
+                },
+                "idLoaiHinhVanChuyen": {
+                    "type": "string"
+                },
+                "ngayDong": {
+                    "type": "string"
+                },
+                "gioDong": {
+                    "type": "string"
+                },
+                "noiDong": {
+                    "type": "string"
+                },
+                "ngayTra": {
+                    "type": "string"
+                },
+                "gioTra": {
+                    "type": "string"
+                },
+                "noiTra": {
+                    "type": "string"
+                },
+                "noCont": {
+                    "type": "string"
+                },
+                "noSeal": {
+                    "type": "string"
+                },
+                "licensePlates": {
+                    "type": "string"
+                },
+                "nameDriver": {
+                    "type": "string"
+                },
+                "phoneNumberDriver": {
+                    "type": "string"
+                },
+                "noteNLH": {
+                    "type": "string"
+                },
+                "noteOrder": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "changStatus": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "addCustomerDB": {
+            "xml": {
+                "name": "Product"
+            },
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "shortName": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "fax": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "contactName": {
+                    "type": "string"
+                },
+                "contactPhone": {
+                    "type": "string"
+                },
+                "keyConnect": {
+                    "type": "string"
+                },
+                "userName": {
+                    "type": "string"
+                },
+                "keyLicense": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 },
                 "nameDB": {
                     "type": "string"

@@ -1,3 +1,4 @@
+const { STRING } = require('sequelize');
 const Sequelize = require('sequelize');
 
 module.exports = function(db) {
@@ -36,7 +37,9 @@ module.exports = function(db) {
         NoteOrder: Sequelize.STRING,
         Status: Sequelize.STRING,
         Created_Date: Sequelize.NOW,
-        Updated_Date: Sequelize.NOW
+        Updated_Date: Sequelize.NOW,
+        STT: Sequelize.INTEGER,
+        STTDN: Sequelize.INTEGER,
 
     });
 

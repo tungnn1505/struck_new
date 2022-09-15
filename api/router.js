@@ -7,8 +7,9 @@ module.exports = function(app) {
     app.route('/auth/decodeToken').get(checkToken.decodeToken);
 
     var customerDBCtl = require('./controllers/customerDB');
-    app.route('/cutomer').post(checkToken.checkToken, customerDBCtl.createDatabase);
-    app.route('/cutomer').get(checkToken.checkToken, customerDBCtl.getListCustomerDB);
+    app.route('/cutomerDB').post(customerDBCtl.createDatabase);
+    app.route('/cutomerDB').get(checkToken.checkToken, customerDBCtl.getListCustomerDB);
+    app.route('/cutomerDB/changeStatus').post(customerDBCtl.changeStatus);
 
     var customerCtl = require('./controllers/customer');
     app.route('/cutomer').get(checkToken.checkToken, customerCtl.getListtblKhachHang);
@@ -87,5 +88,7 @@ module.exports = function(app) {
     app.route('/staffs').get(checkToken.checkToken, ctlStaff.getListNameNhanVien);
     app.route('/staffs/id').get(checkToken.checkToken, ctlStaff.detailNhanVien);
 
+    var ctlOrder = require('./controllers/ctlDonHang')
+    app.route('/order').post(ctlOrder.addDonHang);
 
 }

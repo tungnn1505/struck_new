@@ -136,19 +136,50 @@ module.exports = {
     // add_DonHang
     addDonHang: async(req, res) => {
         let body = req.body;
+        console.log(body);
         database.connectDatabase().then(async db => {
             if (db) {
                 try {
                     const now = moment().format('YYYY-MM-DD HH:mm:ss.SSS');
-                    const codeOrder = '';
+                    let codeOrder = '';
                     await mLoaiHinhVanChuyen(db).findOne({
                         where: {
                             ID: body.idLoaiHinhVanChuyen ? body.idLoaiHinhVanChuyen : null,
                         }
                     }).then(loaiHinh => {
-                        if (loaiHinh) codeOrder += loaiHinh.TenVietTat
+                        if (loaiHinh) codeOrder += loaiHinh.TenVietTat;
                     })
-                    codeOrder += moment().format('YYYY-MM-DD');
+                    codeOrder += '.';
+                    codeOrder += moment().format('YYYYMMDD');
+                    let stt = 1;
+                    let sttdn = 0;
+                    if (!body.idDonHang) {
+                        await mDonHang(db).findOne({
+                            order: [
+                                ['ID', 'DESC']
+                            ],
+                        }).then(order => {
+                            if (order)
+                                stt = order.STT ? (order.STT + 1) : 1;
+                        })
+                        codeOrder = codeOrder + '.' + stt
+                    } else {
+                        await mDonHang(db).findOne({
+                            where: {
+                                ID: body.idDonHang
+                            }
+                        }, {
+                            order: [
+                                ['ID', 'DESC']
+                            ],
+                        }).then(order => {
+                            if (order) {
+                                stt = order.STT;
+                                sttdn = order.STTDN ? (order.STTDN + 1) : 1;
+                            }
+                        })
+                        codeOrder = codeOrder + '.' + stt + '-' + sttdn;
+                    }
                     mDonHang(db).create({
                         IDLoaiHinhVanChuyen: body.idLoaiHinhVanChuyen ? body.idLoaiHinhVanChuyen : null,
                         IDKhachHang: body.idKhachHang ? body.idKhachHang : null,
@@ -180,6 +211,8 @@ module.exports = {
                         Status: body.status ? body.status : '',
                         Created_Date: now,
                         Updated_Date: null,
+                        STT: stt,
+                        STTDN: sttdn,
                     }).then(data => {
                         var result = {
                             status: Constant.STATUS.SUCCESS,

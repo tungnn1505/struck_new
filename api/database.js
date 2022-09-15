@@ -39,20 +39,20 @@ module.exports = {
     //         encrypt: false,
     //     },
     // },
-    config: {
-        user: 'tungnn',
-        password: 'tung@1998',
+    configDBCustomer: {
+        user: 'sa',
+        password: 'itbn13457a$',
         server: '103.137.184.193',
-        database: 'STRUCK_DB_ROOT', // GELESS_QLNB con demo
+        database: 'STRUCK_CUSTOMER_DB', // GELESS_QLNB con demo
         options: {
             encrypt: false,
         },
     },
-    configDBCustomer: {
+    config: {
         user: 'tungnn',
         password: 'tung@1998',
         server: '103.137.184.193',
-        database: 'STRUCK_CUSTOMER_DB',
+        database: 'STRUCK_DB_ROOT',
         options: {
             encrypt: false,
         },
@@ -110,8 +110,8 @@ module.exports = {
         return db;
     },
     connectDatabaseWithNameDB: async function(dbName) {
-        const db = new Sequelize(dbName, this.config.user, this.config.password, {
-            host: this.config.server,
+        const db = new Sequelize(dbName, this.configDBCustomer.user, this.configDBCustomer.password, {
+            host: this.configDBCustomer.server,
             dialect: 'mssql',
             operatorsAliases: '0',
             // Bắt buộc phải có
@@ -166,11 +166,13 @@ module.exports = {
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
     updateTable: async function(listObj, table, id) {
+        console.log(listObj, table, id);
         let updateObj = {};
         for (let field of listObj) {
             updateObj[field.key] = field.value
         }
         try {
+            console.log(updateObj);
             await table.update(updateObj, { where: { ID: id } });
             return Promise.resolve(1);
         } catch (error) {
